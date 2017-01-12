@@ -47,3 +47,35 @@ WHERE continent = 'South America';
 SELECT name, ROUND(gdp/population, -3)
 FROM world
 WHERE gdp > 1000000000000;
+
+#11
+SELECT name,
+CASE WHEN continent='Oceania' THEN 'Australasia'
+ELSE continent 
+END
+FROM world
+WHERE name LIKE 'N%';
+
+#12
+SELECT name,
+CASE WHEN continent = 'Europe' THEN 'Eurasia'
+WHEN continent = 'Asia' THEN 'Eurasia'
+WHEN continent = 'North America' THEN 'America'
+WHEN continent = 'South America' THEN 'America'
+WHEN continent = 'Caribbean' THEN 'America'
+ELSE continent
+END
+FROM world
+WHERE name LIKE 'A%' OR name LIKE 'B%';
+
+#13
+SELECT name, continent,
+CASE WHEN continent = 'Oceania' THEN 'Australasia'
+WHEN continent = 'Eurasia' OR name = 'Turkey' THEN 'Europe/Asia'
+WHEN continent = 'Caribbean' AND name LIKE 'B%' THEN 'North America'
+WHEN continent = 'Caribbean' AND name NOT LIKE 'B%' THEN 'South America'
+ELSE continent
+END
+  FROM world
+WHERE tld IN ('.ag','.ba','.bb','.ca','.cn','.nz','.ru','.tr','.uk')
+ORDER BY name ASC;
