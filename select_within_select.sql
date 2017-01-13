@@ -62,3 +62,11 @@ WHERE name <= ALL(SELECT name
 	WHERE a.continent = b.continent);
 
 #9
+SELECT name, continent, population
+FROM world a
+WHERE 25000000 >= ALL(SELECT population FROM world b WHERE a.continent = b.continent AND population > 0);
+
+#10
+SELECT name, continent
+FROM world a
+WHERE population > ALL(SELECT (population * 3) FROM world b WHERE a.continent = b.continent AND a.name <> b.name);
