@@ -29,3 +29,12 @@ FROM world
 GROUP BY continent;
 
 #7
+SELECT continent, COUNT(name)
+FROM world
+WHERE population >= 10000000
+GROUP BY continent;
+
+#8
+SELECT DISTINCT(continent)
+FROM world a
+WHERE 100000000 <= ALL(SELECT SUM(population) FROM world b WHERE a.continent = b.continent);
