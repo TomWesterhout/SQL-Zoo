@@ -45,3 +45,30 @@ SELECT teamname, COUNT(teamid) AS goals
 FROM eteam JOIN goal ON (id=teamid)
 WHERE id = teamid
 GROUP BY teamname;
+
+#10
+SELECT stadium, COUNT(*) AS goals
+FROM game JOIN goal ON (id = matchid)
+WHERE teamid = team1 OR teamid = team2
+GROUP BY stadium;
+
+#11
+SELECT matchid, mdate, COUNT(teamid) AS goals
+FROM goal JOIN game ON (matchid = id)
+WHERE team1 = 'POL' OR team2 = 'POL'
+GROUP BY matchid, mdate;
+
+#12
+SELECT matchid, mdate, COUNT(teamid) AS goals
+FROM goal JOIN game ON (matchid = id)
+WHERE teamid = 'GER'
+GROUP BY matchid, mdate;
+
+#13
+SELECT DISTINCT( mdate), team1, 
+	SUM(CASE WHEN teamid = team1 THEN 1 ELSE 0 END) score1, 
+	team2, 
+	SUM(CASE WHEN teamid = team2 THEN 1 ELSE 0 END) score2
+FROM game LEFT JOIN goal ON id = matchid
+GROUP BY mdate, team1, team2
+ORDER BY mdate, team1, team2
