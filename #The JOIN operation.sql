@@ -26,3 +26,22 @@ FROM goal JOIN eteam ON (teamid=id)
 WHERE gtime <= 10;
 
 #6
+SELECT mdate, teamname
+FROM game JOIN eteam ON (team1 = eteam.id)
+WHERE coach = 'Fernando Santos';
+
+#7
+SELECT player
+FROM goal JOIN game ON (matchid = id)
+WHERE stadium = 'National Stadium, Warsaw';
+
+#8
+SELECT DISTINCT(player)
+FROM goal JOIN game ON (matchid = id)
+WHERE team1 = teamid AND team2 = 'GER' OR team2 = teamid AND team1 = 'GER';
+
+#9
+SELECT teamname, COUNT(teamid) AS goals
+FROM eteam JOIN goal ON (id=teamid)
+WHERE id = teamid
+GROUP BY teamname;
