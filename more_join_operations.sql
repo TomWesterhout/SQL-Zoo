@@ -90,3 +90,18 @@ FROM casting
 JOIN movie ON (casting.movieid = movie.id)
 JOIN actor ON (casting.actorid = actor.id)
 WHERE actorid IN(SELECT actorid FROM casting WHERE ord = 1 GROUP BY actorid HAVING COUNT(ord) >= 30);
+
+#15
+SELECT title, COUNT(actorid) AS actors
+FROM casting
+JOIN movie ON (casting.movieid = movie.id)
+WHERE yr = 1978
+GROUP BY title
+ORDER BY COUNT(actorid) DESC, title;
+
+#16
+SELECT DISTINCT(name)
+FROM casting
+JOIN actor ON (casting.actorid = actor.id)
+WHERE movieid IN(SELECT movieid FROM casting 
+JOIN actor ON (casting.actorid = actor.id) WHERE name = 'Art Garfunkel') AND name <> 'Art Garfunkel'
