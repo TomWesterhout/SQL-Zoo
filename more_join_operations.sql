@@ -83,3 +83,10 @@ WHERE movieid IN(SELECT movieid FROM casting
 	JOIN movie ON(casting.movieid = movie.id) 
 	JOIN actor ON (casting.actorid = actor.id) WHERE name = 'Julie Andrews') 
 AND ord = 1;
+
+#14
+SELECT DISTINCT(name)
+FROM casting
+JOIN movie ON (casting.movieid = movie.id)
+JOIN actor ON (casting.actorid = actor.id)
+WHERE actorid IN(SELECT actorid FROM casting WHERE ord = 1 GROUP BY actorid HAVING COUNT(ord) >= 30);
