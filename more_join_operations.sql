@@ -27,3 +27,59 @@ FROM actor
 WHERE name = 'Glenn Close';
 
 #6
+SELECT id
+FROM movie
+WHERE title = 'Casablanca';
+
+#7
+SELECT name
+FROM actor 
+JOIN casting ON (id = actorid)
+WHERE movieid = 11768;
+
+#8
+SELECT name
+FROM casting 
+JOIN actor ON (casting.actorid = actor.id) 
+JOIN movie ON (casting.movieid = movie.id)
+WHERE title = 'Alien';
+
+#9
+SELECT title
+FROM casting 
+JOIN movie ON (casting.movieid = movie.id) 
+JOIN actor ON (casting.actorid = actor.id)
+WHERE name = 'Harrison Ford';
+
+#10
+SELECT title
+FROM casting 
+JOIN movie ON (casting.movieid = movie.id) 
+JOIN actor ON (casting.actorid = actor.id)
+WHERE name = 'Harrison Ford' AND ord > 1;
+
+#11
+SELECT title, name
+FROM casting 
+JOIN movie ON (casting.movieid = movie.id) 
+JOIN actor ON (casting.actorid = actor.id)
+WHERE yr = 1962 AND ord = 1;
+
+#12
+SELECT yr, COUNT(title)
+FROM casting 
+JOIN movie ON (casting.movieid = movie.id) 
+JOIN actor ON (casting.actorid = actor.id)
+WHERE name = 'John Travolta'
+GROUP BY yr
+HAVING COUNT(title) > 2;
+
+#13
+SELECT title, name
+FROM casting 
+	JOIN movie ON (casting.movieid = movie.id) 
+	JOIN actor ON (casting.actorid = actor.id)
+WHERE movieid IN(SELECT movieid FROM casting 
+	JOIN movie ON(casting.movieid = movie.id) 
+	JOIN actor ON (casting.actorid = actor.id) WHERE name = 'Julie Andrews') 
+AND ord = 1;
