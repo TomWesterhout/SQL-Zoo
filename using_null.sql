@@ -40,3 +40,25 @@ SELECT COUNT(name) AS name, COUNT(mobile) AS number
 FROM teacher;
 
 #8
+SELECT dept.name, COUNT(teacher.name)
+FROM teacher
+RIGHT JOIN dept
+ON teacher.dept = dept.id
+GROUP BY dept.name;
+
+#9
+SELECT name, 
+CASE WHEN dept = 1 THEN 'Sci'
+WHEN dept = 2 THEN 'Sci'
+ELSE 'Art'
+END
+FROM teacher;
+
+#10
+SELECT name,
+CASE WHEN dept = 1 THEN 'Sci'
+WHEN dept = 2 THEN 'Sci'
+WHEN dept = 3 THEN 'Art'
+ELSE 'None'
+END
+FROM teacher;
