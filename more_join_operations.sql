@@ -79,9 +79,11 @@ SELECT title, name
 FROM casting 
 	JOIN movie ON (casting.movieid = movie.id) 
 	JOIN actor ON (casting.actorid = actor.id)
-WHERE movieid IN(SELECT movieid FROM casting 
+WHERE movieid IN(SELECT movieid 
+	FROM casting 
 	JOIN movie ON(casting.movieid = movie.id) 
-	JOIN actor ON (casting.actorid = actor.id) WHERE name = 'Julie Andrews') 
+	JOIN actor ON (casting.actorid = actor.id) 
+	WHERE name = 'Julie Andrews') 
 AND ord = 1;
 
 #14
@@ -89,7 +91,11 @@ SELECT DISTINCT(name)
 FROM casting
 JOIN movie ON (casting.movieid = movie.id)
 JOIN actor ON (casting.actorid = actor.id)
-WHERE actorid IN(SELECT actorid FROM casting WHERE ord = 1 GROUP BY actorid HAVING COUNT(ord) >= 30);
+WHERE actorid IN(SELECT actorid 
+	FROM casting 
+	WHERE ord = 1 
+	GROUP BY actorid 
+	HAVING COUNT(ord) >= 30);
 
 #15
 SELECT title, COUNT(actorid) AS actors
@@ -103,5 +109,7 @@ ORDER BY COUNT(actorid) DESC, title;
 SELECT DISTINCT(name)
 FROM casting
 JOIN actor ON (casting.actorid = actor.id)
-WHERE movieid IN(SELECT movieid FROM casting 
-JOIN actor ON (casting.actorid = actor.id) WHERE name = 'Art Garfunkel') AND name <> 'Art Garfunkel'
+WHERE movieid IN(SELECT movieid 
+	FROM casting 
+	JOIN actor ON (casting.actorid = actor.id) 
+	WHERE name = 'Art Garfunkel') AND name <> 'Art Garfunkel';
