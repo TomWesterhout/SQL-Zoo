@@ -58,13 +58,15 @@ JOIN stops ON a.stop = stops.id
 WHERE b.stop = 53;
 
 #10
-SELECT DISTINCT an, ac, stops.name, dn, dc
-FROM (SELECT a.num as an, a.company as ac, b.stop as bstop
-      FROM route a JOIN route b 
-      JOIN stops s ON a.num = b.num AND s.id = a.stop
-      WHERE s.name = 'Craiglockhart') T1
-JOIN (SELECT d.num as dn, d.company as dc, c.stop as cstop
-      FROM route c JOIN route d 
-      JOIN stops s ON c.num = d.num AND c.company = d.company AND s.id = d.stop
-      WHERE s.name = 'Sighthill') T2
-JOIN stops ON bstop = cstop AND bstop = stops.id
+SELECT DISTINCT(a.num), a.company, transita.name, c.num, c.company
+FROM route a
+JOIN route b ON a.num = b.num AND a.company = b.company
+JOIN (route c JOIN route d ON c.num = d.num AND c.company = d.company)
+JOIN stops start ON a.stop = start.id
+JOIN stops transita ON b.stop = transita.id
+JOIN stops transitb ON c.stop = transitb.id
+JOIN stops stop ON d.stop = stop.id
+WHERE start.name = 'Craiglockhart'
+AND stop.name = 'Sighthill'
+AND transita.name = transitb.name
+ORDER BY LENGTH(a.num), b.num, transita.id, LENGTH(c.num), d.num;
