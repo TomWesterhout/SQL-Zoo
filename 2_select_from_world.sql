@@ -76,6 +76,6 @@ WHEN continent = 'Caribbean' AND name LIKE 'B%' THEN 'North America'
 WHEN continent = 'Caribbean' AND name NOT LIKE 'B%' THEN 'South America'
 ELSE continent
 END
-  FROM world
+FROM world
 WHERE tld IN ('.ag','.ba','.bb','.ca','.cn','.nz','.ru','.tr','.uk')
 ORDER BY name ASC;

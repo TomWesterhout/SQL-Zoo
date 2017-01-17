@@ -44,8 +44,8 @@ WHERE continent = 'Europe';
 SELECT name
 FROM world
 WHERE gdp > ALL(SELECT gdp 
-				FROM world 
-				WHERE gdp > 0 AND continent = 'Europe');
+	FROM world 
+	WHERE gdp > 0 AND continent = 'Europe');
 
 #7
 SELECT continent, name, area
@@ -64,9 +64,13 @@ WHERE name <= ALL(SELECT name
 #9
 SELECT name, continent, population
 FROM world a
-WHERE 25000000 >= ALL(SELECT population FROM world b WHERE a.continent = b.continent AND population > 0);
+WHERE 25000000 >= ALL(SELECT population 
+	FROM world b 
+	WHERE a.continent = b.continent AND population > 0);
 
 #10
 SELECT name, continent
 FROM world a
-WHERE population > ALL(SELECT (population * 3) FROM world b WHERE a.continent = b.continent AND a.name <> b.name);
+WHERE population > ALL(SELECT (population * 3) 
+	FROM world b 
+	WHERE a.continent = b.continent AND a.name <> b.name);

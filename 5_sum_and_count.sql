@@ -37,4 +37,6 @@ GROUP BY continent;
 #8
 SELECT DISTINCT(continent)
 FROM world a
-WHERE 100000000 <= ALL(SELECT SUM(population) FROM world b WHERE a.continent = b.continent);
+WHERE 100000000 <= ALL(SELECT SUM(population) 
+	FROM world b 
+	WHERE a.continent = b.continent);
